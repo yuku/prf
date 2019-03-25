@@ -1,6 +1,7 @@
 package main
 
 import (
+  "context"
   "fmt"
   "log"
   "os/exec"
@@ -58,9 +59,10 @@ func main() {
   tc := oauth2.NewClient(oauth2.NoContext, ts)
   client := github.NewClient(tc)
 
+  ctx := context.TODO()
   url := getRemoteURL()
   owner, repo := parseURL(url)
-  pulls, _, err := client.PullRequests.List(owner, repo, nil)
+  pulls, _, err := client.PullRequests.List(ctx, owner, repo, nil)
   if err != nil {
     log.Fatal(err)
   }
